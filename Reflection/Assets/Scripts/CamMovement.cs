@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class CamMovement : MonoBehaviour
 {
 
@@ -11,6 +11,7 @@ public class CamMovement : MonoBehaviour
     float x, y;
 
     bool gameStarted;
+    public Image crosshair;
     private void Start() {
         Cursor.lockState = CursorLockMode.Locked;
         //after 38 seconds (after the boom sound) we move the camera to the player
@@ -32,7 +33,8 @@ public class CamMovement : MonoBehaviour
         this.GetComponent<Animator>().enabled = false;
         this.transform.parent = body;
         this.transform.localPosition = Vector3.zero;
-        this.transform.localPosition = new Vector3(0, 0.838f, 0.233f); //good placement for the player cam
+        this.transform.localPosition = new Vector3(0, 0.838f, 0); //good placement for the player cam ---> 0.233 == z
+        crosshair.gameObject.SetActive(true);
         gameStarted = true;
     }
 }

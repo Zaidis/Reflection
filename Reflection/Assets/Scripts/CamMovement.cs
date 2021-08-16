@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class CamMovement : MonoBehaviour
 {
-
+    public static CamMovement instance;
     public float sensitivity = 100f;
     public Transform body;
     float xRotation = 0f;
@@ -12,6 +12,18 @@ public class CamMovement : MonoBehaviour
 
     bool gameStarted;
     public Image crosshair;
+
+    public GameObject flashlight;
+    bool flashLightOn;
+    public bool hasFlashlight;
+
+    private void Awake() {
+        if (instance == null) {
+            instance = this;
+        } else {
+            Destroy(this);
+        }
+    }
     private void Start() {
         Cursor.lockState = CursorLockMode.Locked;
         //after 38 seconds (after the boom sound) we move the camera to the player
@@ -25,7 +37,20 @@ public class CamMovement : MonoBehaviour
             xRotation -= y;
             xRotation = Mathf.Clamp(xRotation, -90f, 90f);
             transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+            flashlight.transform.localRotation = transform.localRotation;
             body.Rotate(Vector3.up * x);
+        }
+        if (hasFlashlight) {
+            if (Input.GetKeyDown(KeyCode.T)) {
+                //Flashlight button
+                if (!flashLightOn) {
+                    flashlight.SetActive(true);
+                    flashLightOn = true;
+                } else {
+                    flashlight.SetActive(false);
+                    flashLightOn = false;
+                }
+            }
         }
 
     }

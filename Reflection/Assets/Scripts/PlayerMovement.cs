@@ -46,10 +46,15 @@ public class PlayerMovement : Teleporter
                 if (hit.collider.gameObject.CompareTag("Door")) {
                     
                     hit.collider.gameObject.GetComponent<Door>().StartInteraction();
+                } else if (hit.collider.gameObject.CompareTag("Flashlight")) {
+                    Destroy(hit.collider.gameObject);
+                    CamMovement.instance.hasFlashlight = true;
+                    guides.instance.GiveGuide();
                 }
             }
         }
 
+        
     }
 
     public override void Teleport(Transform oldPortal, Transform newPortal, Vector3 pos, Quaternion rot) {
@@ -65,6 +70,12 @@ public class PlayerMovement : Teleporter
         if (other.CompareTag("Door")) {
             if(guides.instance.i < 2)
                 guides.instance.GiveGuide();
+        }
+
+        if(other.CompareTag("Flashlight")) {
+            if(guides.instance.i < 3) {
+                guides.instance.GiveGuide();
+            }
         }
     }
     private void OnTriggerExit(Collider other) {

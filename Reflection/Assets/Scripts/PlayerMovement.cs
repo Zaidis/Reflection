@@ -40,6 +40,18 @@ public class PlayerMovement : Teleporter
 
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        
+        if(Physics.Raycast(ray, out hit, 1.5f)) {
+            Debug.DrawLine(Camera.main.transform.position, hit.point, Color.red);
+            if (hit.collider.gameObject.layer == 7) {
+                //interactable layer is seven
+                CamMovement.instance.crosshair.color = Color.red;
+            } else {
+                CamMovement.instance.crosshair.color = Color.white;
+            }
+        } else {
+            CamMovement.instance.crosshair.color = Color.white;
+        }
         if (Input.GetKeyDown(KeyCode.E)) {
             //interact button
             if(Physics.Raycast(ray, out hit, 1.5f)) {
@@ -68,12 +80,12 @@ public class PlayerMovement : Teleporter
 
     private void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Door")) {
-            if(guides.instance.i < 2)
+            if(guides.instance.i == 1)
                 guides.instance.GiveGuide();
         }
 
         if(other.CompareTag("Flashlight")) {
-            if(guides.instance.i < 3) {
+            if(guides.instance.i == 2) {
                 guides.instance.GiveGuide();
             }
         }

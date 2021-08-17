@@ -98,6 +98,8 @@ public class PlayerMovement : Teleporter
             }
         } else if (other.CompareTag("Key")) {
             guides.instance.ChangeText(other.GetComponent<Key>().keyName);
+        } else if (other.CompareTag("VoiceLine")) {
+            other.GetComponent<VoiceLine>().PlaySound();
         }
     }
     private void OnTriggerExit(Collider other) {

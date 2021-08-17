@@ -7,12 +7,15 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public List<int> keys = new List<int>();
     public int batteryAmount { get; set; }
+    private AudioSource source;
     private void Awake() {
         if(instance == null) {
             instance = this;
         } else {
             Destroy(this.gameObject);
         }
+
+        source = this.GetComponent<AudioSource>();
     }
 
     /// <summary>
@@ -31,5 +34,10 @@ public class GameManager : MonoBehaviour
 
     public void AddKey(int key) {
         keys.Add(key);
+    }
+
+    public void PlaySound(AudioClip clip) {
+        source.clip = clip;
+        source.Play();
     }
 }

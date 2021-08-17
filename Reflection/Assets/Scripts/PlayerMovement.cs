@@ -97,7 +97,7 @@ public class PlayerMovement : Teleporter
                 guides.instance.GiveGuide();
             }
         } else if (other.CompareTag("Key")) {
-
+            guides.instance.ChangeText(other.GetComponent<Key>().keyName);
         }
     }
     private void OnTriggerExit(Collider other) {

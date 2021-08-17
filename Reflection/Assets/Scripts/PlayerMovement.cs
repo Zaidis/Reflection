@@ -14,6 +14,7 @@ public class PlayerMovement : Teleporter
     private float groundDistance = 0.4f;
     [SerializeField] bool isGrounded;
     public LayerMask groundMask;
+    public LayerMask interactable;
     private void Awake() {
         controller = GetComponent<CharacterController>();
     }
@@ -41,7 +42,7 @@ public class PlayerMovement : Teleporter
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         
-        if(Physics.Raycast(ray, out hit, 1.5f)) {
+        if(Physics.Raycast(ray, out hit, 1.5f, interactable)) {
             Debug.DrawLine(Camera.main.transform.position, hit.point, Color.red);
             if (hit.collider.gameObject.layer == 7) {
                 //interactable layer is seven
@@ -54,7 +55,7 @@ public class PlayerMovement : Teleporter
         }
         if (Input.GetKeyDown(KeyCode.E)) {
             //interact button
-            if(Physics.Raycast(ray, out hit, 1.5f)) {
+            if(Physics.Raycast(ray, out hit, 1.5f, interactable)) {
                 if (hit.collider.gameObject.CompareTag("Door")) {
                     
                     hit.collider.gameObject.GetComponent<Door>().StartInteraction();
@@ -82,6 +83,11 @@ public class PlayerMovement : Teleporter
         if (other.CompareTag("Door")) {
             if(guides.instance.i == 1)
                 guides.instance.GiveGuide();
+
+            if (other.GetComponent<Door>().isLocked) {
+                if(GameManager.instance.keyAmount < 1)
+                    guides.instance.ChangeText("This door is locked. You need a key");
+            }
         }
 
         if(other.CompareTag("Flashlight")) {
@@ -92,7 +98,9 @@ public class PlayerMovement : Teleporter
     }
     private void OnTriggerExit(Collider other) {
         if (other.CompareTag("Door")) {
-            
+            if (other.GetComponent<Door>().isLocked) {
+                guides.instance.ChangeText("");
+            }
         }
     }
 }

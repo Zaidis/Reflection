@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 1410375367247526070}
   - component: {fileID: 1410375367247526064}
   - component: {fileID: 1410375367247526071}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Door
   m_TagString: Door
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ Transform:
   - {fileID: 1410375368120223105}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 359.6, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &1410375367247526075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,7 +398,7 @@ GameObject:
   - component: {fileID: 1410375368120223132}
   - component: {fileID: 1410375368120223107}
   - component: {fileID: 1410375368120223106}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

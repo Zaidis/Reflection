@@ -8,15 +8,18 @@ public class Door : Interactable
     public Collider triggerCollider;
     public PlayableDirector dir;
     public bool opened;
+    public bool isLocked;
     private void Awake() {
         dir = this.GetComponent<PlayableDirector>();
     }
     public override void StartInteraction() {
         //print("I am interacting!");
         if (!opened) {
-            dir.Play();
-            opened = true;
-            StopInteraction();
+            if (!isLocked) {
+                dir.Play();
+                opened = true;
+                StopInteraction();
+            }
         }
     }
 

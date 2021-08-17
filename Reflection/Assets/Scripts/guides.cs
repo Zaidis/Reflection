@@ -52,4 +52,7 @@ public class guides : MonoBehaviour
         i++;
     }
 
+    public void ChangeText(string line) {
+        textObject.text = line;
+    }
 }

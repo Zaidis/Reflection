@@ -4,11 +4,13 @@ using UnityEngine;
 using UnityEngine.Playables;
 public class Door : Interactable
 {
-    public float openSpeed; //how fast the door opens
     public Collider triggerCollider;
     public PlayableDirector dir;
     public bool opened;
+    [Header("If car is locked")]
     public bool isLocked;
+    public string lockedLine;
+    public int keyId; //what key it needs to open
     private void Awake() {
         dir = this.GetComponent<PlayableDirector>();
     }
@@ -19,6 +21,15 @@ public class Door : Interactable
                 dir.Play();
                 opened = true;
                 StopInteraction();
+            } else {
+                //it is locked
+                if (GameManager.instance.CheckKey(keyId)) {
+                    isLocked = false;
+                    dir.Play();
+                    opened = true;
+                    StopInteraction();
+                }
+                    
             }
         }
     }

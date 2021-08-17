@@ -57,12 +57,13 @@ public class PlayerMovement : Teleporter
             //interact button
             if(Physics.Raycast(ray, out hit, 1.5f, interactable)) {
                 if (hit.collider.gameObject.CompareTag("Door")) {
-                    
                     hit.collider.gameObject.GetComponent<Door>().StartInteraction();
                 } else if (hit.collider.gameObject.CompareTag("Flashlight")) {
                     Destroy(hit.collider.gameObject);
                     CamMovement.instance.hasFlashlight = true;
                     guides.instance.GiveGuide();
+                } else if (hit.collider.gameObject.CompareTag("Key")) {
+                    hit.collider.gameObject.GetComponent<Key>().StartInteraction();
                 }
             }
         }
@@ -85,15 +86,18 @@ public class PlayerMovement : Teleporter
                 guides.instance.GiveGuide();
 
             if (other.GetComponent<Door>().isLocked) {
-                if(GameManager.instance.keyAmount < 1)
-                    guides.instance.ChangeText("This door is locked. You need a key");
-            }
-        }
+                int neededKey = other.GetComponent<Door>().keyId;
 
-        if(other.CompareTag("Flashlight")) {
+                if(!GameManager.instance.CheckKey(neededKey))
+                    guides.instance.ChangeText(other.GetComponent<Door>().lockedLine);
+
+            }
+        } else if(other.CompareTag("Flashlight")) {
             if(guides.instance.i == 2) {
                 guides.instance.GiveGuide();
             }
+        } else if (other.CompareTag("Key")) {
+
         }
     }
     private void OnTriggerExit(Collider other) {

@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public int keyAmount { get; set; }
+    public List<int> keys = new List<int>();
     public int batteryAmount { get; set; }
     private void Awake() {
         if(instance == null) {
@@ -13,5 +13,23 @@ public class GameManager : MonoBehaviour
         } else {
             Destroy(this.gameObject);
         }
+    }
+
+    /// <summary>
+    /// Checks if you have the key to open the door.
+    /// </summary>
+    /// <param name="num"></param>
+    /// <returns></returns>
+    public bool CheckKey(int num) {
+        for(int i = 0; i < keys.Count; i++) {
+            if(num == keys[i]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void AddKey(int key) {
+        keys.Add(key);
     }
 }

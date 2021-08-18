@@ -64,6 +64,8 @@ public class PlayerMovement : Teleporter
                     guides.instance.GiveGuide();
                 } else if (hit.collider.gameObject.CompareTag("Key")) {
                     hit.collider.gameObject.GetComponent<Key>().StartInteraction();
+                } else if (hit.collider.gameObject.CompareTag("Lever")) {
+                    hit.collider.gameObject.GetComponent<Lever>().StartInteraction();
                 }
             }
         }

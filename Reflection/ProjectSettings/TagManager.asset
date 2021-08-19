@@ -9,6 +9,7 @@ TagManager:
   - Key
   - VoiceLine
   - Lever
+  - Button
   layers:
   - Default
   - TransparentFX

@@ -66,6 +66,8 @@ public class PlayerMovement : Teleporter
                     hit.collider.gameObject.GetComponent<Key>().StartInteraction();
                 } else if (hit.collider.gameObject.CompareTag("Lever")) {
                     hit.collider.gameObject.GetComponent<Lever>().StartInteraction();
+                } else if (hit.collider.gameObject.CompareTag("Button")) {
+                    hit.collider.gameObject.GetComponent<PassButton>().StartInteraction();
                 }
             }
         }

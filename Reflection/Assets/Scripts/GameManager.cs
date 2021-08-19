@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public List<int> keys = new List<int>();
     public int batteryAmount { get; set; }
     private AudioSource source;
+    [SerializeField] private string keyCode; //for the end
     private void Awake() {
         if(instance == null) {
             instance = this;
@@ -18,6 +19,21 @@ public class GameManager : MonoBehaviour
         source = this.GetComponent<AudioSource>();
     }
 
+    private void Start() {
+        NewKeyCode();
+    }
+
+    public void NewKeyCode() {
+        for(int i = 0; i < 4; i++) {
+            //keycode = 4 digits
+            int rand = Random.Range(0, 10); //0 - 9
+            keyCode += rand.ToString();
+        }
+    }
+
+    public string Code() {
+        return keyCode;
+    }
     /// <summary>
     /// Checks if you have the key to open the door.
     /// </summary>

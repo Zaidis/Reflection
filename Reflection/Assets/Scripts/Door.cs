@@ -38,6 +38,10 @@ public class Door : Interactable
         Destroy(triggerCollider);
     }
 
-    
+    public void OpenDoor() {
+        dir.Play();
+        opened = true;
+        StopInteraction();
+    }
 
 }

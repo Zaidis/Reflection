@@ -12,8 +12,10 @@ public class Key : Interactable
         GameManager.instance.AddKey(id);
         if (triggersEvent) {
             this.GetComponent<TriggerEvent>().StartEvent();
+            guides.instance.ChangeText("");
             return;
         }
+        guides.instance.ChangeText("");
         Destroy(this.gameObject);
     }
 }

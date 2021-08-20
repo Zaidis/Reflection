@@ -9,9 +9,15 @@ public class Pass : MonoBehaviour
     public TextMeshPro screenText;
     public TextMeshPro previousAnswer;
     public Door theDoor;
+    private AudioSource source;
+
+    private void Awake() {
+        source = GetComponent<AudioSource>();
+    }
     public void AddNumber(int num) {
         code += num.ToString();
         screenText.text = code;
+        source.Play();
         if(code.Length == 4) {
             CheckPassCode();
         }

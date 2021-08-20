@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : Teleporter
 {
+    public static PlayerMovement instance;
     [SerializeField] private float speed; //player speed
     [SerializeField] private float gravity = -9.81f; //player gravity amount
     [SerializeField] private Transform origin;
@@ -15,8 +16,15 @@ public class PlayerMovement : Teleporter
     [SerializeField] bool isGrounded;
     public LayerMask groundMask;
     public LayerMask interactable;
+    public AudioSource source;
     private void Awake() {
+        if(instance == null) {
+            instance = this;
+        } else {
+            Destroy(this.gameObject);
+        }
         controller = GetComponent<CharacterController>();
+        source = GetComponent<AudioSource>();
     }
     
     private void Update() {
@@ -68,6 +76,8 @@ public class PlayerMovement : Teleporter
                     hit.collider.gameObject.GetComponent<Lever>().StartInteraction();
                 } else if (hit.collider.gameObject.CompareTag("Button")) {
                     hit.collider.gameObject.GetComponent<PassButton>().StartInteraction();
+                } else if (hit.collider.gameObject.CompareTag("Radio")) {
+                    hit.collider.gameObject.GetComponent<Radio>().StartInteraction();
                 }
             }
         }
@@ -111,6 +121,8 @@ public class PlayerMovement : Teleporter
             if (other.GetComponent<Door>().isLocked) {
                 guides.instance.ChangeText("");
             }
+        } else if (other.CompareTag("Key")) {
+            guides.instance.ChangeText("");
         }
     }
 }

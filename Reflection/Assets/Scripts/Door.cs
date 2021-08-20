@@ -18,16 +18,12 @@ public class Door : Interactable
         //print("I am interacting!");
         if (!opened) {
             if (!isLocked) {
-                dir.Play();
-                opened = true;
-                StopInteraction();
+                OpenDoor();
             } else {
                 //it is locked
                 if (GameManager.instance.CheckKey(keyId)) {
                     isLocked = false;
-                    dir.Play();
-                    opened = true;
-                    StopInteraction();
+                    OpenDoor();
                 }
                     
             }
@@ -41,6 +37,7 @@ public class Door : Interactable
     public void OpenDoor() {
         dir.Play();
         opened = true;
+        GetComponent<AudioSource>().Play();
         StopInteraction();
     }
 

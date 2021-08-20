@@ -27,6 +27,7 @@ public class guides : MonoBehaviour
         textObject = this.GetComponent<TextMeshProUGUI>();
         textObject.text = "";
         Invoke("GiveGuide", 46f); //46 == when the player can start to see the world
+        
     }
 
     private void Update() {

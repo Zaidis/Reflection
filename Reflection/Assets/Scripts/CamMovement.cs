@@ -44,11 +44,9 @@ public class CamMovement : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.T)) {
                 //Flashlight button
                 if (!flashLightOn) {
-                    flashlight.SetActive(true);
-                    flashLightOn = true;
+                    TurnOnFlashlight();
                 } else {
-                    flashlight.SetActive(false);
-                    flashLightOn = false;
+                    TurnOffFlashlight();
                 }
             }
         }
@@ -61,5 +59,17 @@ public class CamMovement : MonoBehaviour
         this.transform.localPosition = new Vector3(0, 0.838f, 0); //good placement for the player cam ---> 0.233 == z
         crosshair.gameObject.SetActive(true);
         gameStarted = true;
+    }
+
+    public void TurnOnFlashlight() {
+        flashlight.SetActive(true);
+        flashLightOn = true;
+        PlayerMovement.instance.source.Play();
+    }
+
+    public void TurnOffFlashlight() {
+        flashlight.SetActive(false);
+        flashLightOn = false;
+        PlayerMovement.instance.source.Play();
     }
 }

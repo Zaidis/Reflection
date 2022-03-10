@@ -21,6 +21,7 @@ public class Event_3 : TriggerEvent
     }
     public override void StartEvent() {
         SoundManager.instance.StopMusic();
+        GetComponent<Collider>().enabled = false; //fixes bug where they could use this event multiple times
         PlayerMovement.instance.canMove = false; //can no longer move
         CamMovement.instance.hasFlashlight = false;
         CamMovement.instance.TurnOffFlashlight();
@@ -39,6 +40,9 @@ public class Event_3 : TriggerEvent
         boxes.Remove(box);
         i++;
     }
+    /// <summary>
+    /// Turns on the flashlight during ending scene
+    /// </summary>
     public void TurnOn() {
         if(i != amount)
             SpawnBox();
@@ -48,7 +52,9 @@ public class Event_3 : TriggerEvent
         Invoke("TurnOff", 5f);
 
     }
-
+    /// <summary>
+    /// Turns off flashlight during ending scene
+    /// </summary>
     public void TurnOff() {
         RenderSettings.fogDensity = 0.5f;
         CamMovement.instance.TurnOffFlashlight();

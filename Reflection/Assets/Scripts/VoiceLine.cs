@@ -6,7 +6,7 @@ public class VoiceLine : MonoBehaviour
 {
 
     public AudioSource source;
-
+    public bool triggerEvent;
     private void Awake() {
         source = this.GetComponent<AudioSource>();
     }
@@ -14,6 +14,9 @@ public class VoiceLine : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player")) {
             source.Play();
+            if (triggerEvent) {
+                this.GetComponent<TriggerEvent>().StartEvent();
+            }
             Destroy(this.GetComponent<Collider>());
         }
     }

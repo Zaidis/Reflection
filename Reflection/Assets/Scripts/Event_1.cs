@@ -10,7 +10,9 @@ public class Event_1 : TriggerEvent
     public AudioClip sound;
     public override void StartEvent() {
         box.SetActive(true);
-        easterEgg.SetActive(true);
+        if(easterEgg != null)
+            easterEgg.SetActive(true);
+
         GameManager.instance.PlaySound(sound);
         Destroy(this.gameObject);
     }

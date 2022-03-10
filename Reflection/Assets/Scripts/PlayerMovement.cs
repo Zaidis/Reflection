@@ -29,7 +29,8 @@ public class PlayerMovement : Teleporter
     
     private void Update() {
         if (canMove) {
-            isGrounded = Physics.CheckSphere(origin.position, groundDistance, groundMask);
+            //isGrounded = Physics.CheckSphere(origin.position, groundDistance, groundMask);
+            isGrounded = controller.isGrounded;
 
             if (isGrounded && velocity.y <= 0) {
                 velocity.y = -2f;
